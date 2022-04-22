@@ -9,13 +9,15 @@ function solution(c, testCases) {
   const stack = [];
   const func = {
     pop: () => stack.pop() || -1,
-    size: () => stack.length, 
-    empty: () => stack[stack.length - 1] || -1,
+    size: () => stack.length,
+    empty: () => stack[0] ? 0 : 1,
+    top: () => stack[stack.length - 1] || -1,
     push: (item) => {
-      stack.push(item.split(" ")[1]);
-      return ' ';
+      stack.push(item.split(" ")[1]); 
+      return '';
     }
   }
-  const result = input.recuce((acc, v) => acc + (func[v] ? `${func[v]()}\n` : func.push(v)), '');
+  const result = input.reduce((acc, v) => acc + (func[v] ? `${func[v]()}\n` : func.push(v)), '');
+  console.log(result)
 }
 solution(c, testCases)
