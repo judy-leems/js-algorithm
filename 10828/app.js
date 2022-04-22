@@ -7,32 +7,44 @@ const [c, ...testCases] = input;
 
 function solution(c, testCases) {
   const stack = [];
-  let answer = [];
+  let top = 0;
+  let answer = '';
   
 
   for (let i = 0; i < c; i += 1) {
     const testCase = testCases[i].split(' ')[0];
-    
+    let result = '';
     switch(testCase) {
       case 'push':
-        stack.push(testCases[i].split(" ")[1]);
+        const pushItem = testCases[i].split(' ')[1];
+        stack[top++] = pushItem;
         break;
       case 'pop':
-        answer.push(stack.pop() || -1);
+        if(top) {
+          top -= 1;
+          result = stack.splice(-1);
+          answer += result + ' ';
+        } else {
+          result = -1;
+          answer += result + ' ';
+        }
         break;
       case 'top':
-        answer.push(stack[stack.length - 1] || -1);
+        result = top ? stack[top - 1] : -1;
+        answer += result + ' ';
         break;
       case 'empty':
-        answer.push(stack[0] ? 0 : 1);
+        result = top ? 0 : 1;
+        answer += result + ' ';
         break;
       case 'size':
-        answer.push(stack.length);
+        result = top;
+        answer += result + ' ';
         break;
       default:
         break;      
     }
-    console.log(answer.join('\n'))
   }
+  console.log(answer.split(' ').join('\n'))
 }
 solution(c, testCases)
