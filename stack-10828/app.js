@@ -45,6 +45,6 @@ function solution(c, testCases) {
         break;      
     }
   }
-  console.log(answer.split(' ').join('\n'))
+  //console.log(answer.split(' ').join('\n'))
 }
 solution(c, testCases)
