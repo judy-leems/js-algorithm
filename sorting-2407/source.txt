@@ -1,0 +1,3 @@
+// 투 포인터
+https://minse5k.github.io/boj-2470/
+https://velog.io/@ywc8851/%EB%B0%B1%EC%A4%80-2470-%EB%91%90-%EC%9A%A9%EC%95%A1-javascript

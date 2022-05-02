@@ -4,23 +4,29 @@ const readFileSyncAddress =
 let input = fs.readFileSync(readFileSyncAddress).toString().trim();
 input = input.split("\n");
 
-const [c, testCases] = input[0].split(" ");
+let n = Number(input[0]);
+let arr = new Array(n);
+arr = input[1].split(" ").map(Number);
+arr.sort((a, b) => a - b);
 
-function solution(c, testCases) {
-  const queue = [];
-  const result = [];
-  for(let i = 0; i < c; i += 1) queue.push(i + 1)
-  
-  let count = 1;
-  while(queue.length) {
-    const shiftItem = queue.shift();
-    if(count % testCases === 0) {
-      result.push(shiftItem)
-    } else {
-      queue.push(shiftItem)
-    }
-    count += 1;
+let left = 0;
+let right = n - 1;
+let sum = 0;
+let ans = Infinity;
+let ans_pair = new Array(2).fill(0);
+while (left !== right) {
+  sum = arr[left] + arr[right];
+  if (Math.abs(sum) < ans) {
+    ans = Math.abs(sum);
+    ans_pair[0] = arr[left];
+    ans_pair[1] = arr[right];
   }
-  console.log(`<${result.join(", ")}>`);
+  if (sum === 0) {
+    break;
+  } else if (sum > 0) {
+    right--;
+  } else if (sum < 0) {
+    left++;
+  }
 }
-solution(c, testCases);
+console.log(ans_pair.join(" "));
