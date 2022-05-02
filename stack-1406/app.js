@@ -4,23 +4,18 @@ const readFileSyncAddress =
 let input = fs.readFileSync(readFileSyncAddress).toString().trim();
 input = input.split("\n");
 
-const [c, testCases] = input[0].split(" ");
+let lStack = input[0].split("");
+let rStack = [];
+let len = parseInt(input[1]);
 
-function solution(c, testCases) {
-  const queue = [];
-  const result = [];
-  for(let i = 0; i < c; i += 1) queue.push(i + 1)
-  
-  let count = 1;
-  while(queue.length) {
-    const shiftItem = queue.shift();
-    if(count % testCases === 0) {
-      result.push(shiftItem)
-    } else {
-      queue.push(shiftItem)
-    }
-    count += 1;
-  }
-  console.log(`<${result.join(", ")}>`);
+for (let i = 2; i < 2 + len; i++) {
+  let [cmd, value] = input[i].split(" ");
+  if (cmd === "L" && lStack.length) rStack.push(lStack.pop());
+  else if (cmd === "D" && rStack.length) lStack.push(rStack.pop());
+  else if (cmd === "B") lStack.pop();
+  else if (cmd === "P") lStack.push(value);
 }
-solution(c, testCases);
+
+let answer = lStack.join("");
+answer += rStack.reverse().join("");
+console.log(answer);

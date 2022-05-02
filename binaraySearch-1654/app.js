@@ -4,23 +4,34 @@ const readFileSyncAddress =
 let input = fs.readFileSync(readFileSyncAddress).toString().trim();
 input = input.split("\n");
 
-const [c, testCases] = input[0].split(" ");
+const [K, N] = 
+      input
+        .shift()
+        .split(" ")
+        .map((v) => Number(v))
 
-function solution(c, testCases) {
-  const queue = [];
-  const result = [];
-  for(let i = 0; i < c; i += 1) queue.push(i + 1)
-  
-  let count = 1;
-  while(queue.length) {
-    const shiftItem = queue.shift();
-    if(count % testCases === 0) {
-      result.push(shiftItem)
-    } else {
-      queue.push(shiftItem)
-    }
-    count += 1;
+let sortedInput = 
+    input
+      .map((v) => Number(v))
+      .sort((a, b) => a - b); 
+
+
+let min = 1;
+let max = Math.max(...sortedInput)
+
+while(min <= max) {
+  let mid = Math.floor((min + max) / 2);
+  let pieces = 
+      sortedInput
+        .map((line) => parseInt(line / mid))
+        .reduce((a, b) => a + b, 0);
+
+  if(pieces >= N) {
+    min = mid + 1;
+  } else {
+    max = mid - 1;
   }
-  console.log(`<${result.join(", ")}>`);
 }
-solution(c, testCases);
+
+console.log(max)
+
